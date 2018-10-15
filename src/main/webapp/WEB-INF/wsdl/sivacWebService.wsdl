@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://ws.sivac.gsk.com/" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="SivacWebService" targetNamespace="http://ws.sivac.gsk.com/">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://ws.sivac.gsk.com/" attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://ws.sivac.gsk.com/">
+  <xs:element name="obtenerAlmacenes" type="tns:obtenerAlmacenes"/>
+  <xs:element name="obtenerAlmacenesResponse" type="tns:obtenerAlmacenesResponse"/>
+  <xs:complexType name="obtenerAlmacenes">
+    <xs:sequence/>
+  </xs:complexType>
+  <xs:complexType name="obtenerAlmacenesResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="almacenes">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="almacen" type="tns:almacen"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="almacen">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="activo" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="caracter" type="xs:long"/>
+      <xs:element minOccurs="0" name="cif" type="xs:string"/>
+      <xs:element name="codigo" type="xs:string"/>
+      <xs:element minOccurs="0" name="direcciones">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="direccion" type="tns:direccion"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+      <xs:element minOccurs="0" name="esPtoVac" type="xs:boolean"/>
+      <xs:element minOccurs="0" name="nombre" type="xs:string"/>
+      <xs:element minOccurs="0" name="observaciones" type="xs:string"/>
+      <xs:element minOccurs="0" name="tipoAlmacen" type="xs:long"/>
+      <xs:element minOccurs="0" name="tipoAlmacenPtoVacunacion" type="xs:long"/>
+      <xs:element minOccurs="0" name="viasContacto">
+        <xs:complexType>
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="viaContacto" type="tns:viaContacto"/>
+          </xs:sequence>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="direccion">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="codigoPostal" type="xs:long"/>
+      <xs:element minOccurs="0" name="observaciones" type="xs:string"/>
+      <xs:element name="tipoDireccion" type="xs:long"/>
+      <xs:element name="tipoUnidadTerritorial" type="xs:long"/>
+      <xs:element minOccurs="0" name="tipoVia" type="xs:long"/>
+      <xs:element name="unidadTerritorial" type="xs:string"/>
+      <xs:element name="via" type="xs:string"/>
+      <xs:element minOccurs="0" name="viaComplementaria" type="xs:string"/>
+      <xs:element minOccurs="0" name="viaNumero" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="viaContacto">
+    <xs:sequence>
+      <xs:element name="tipoViaContacto" type="xs:long"/>
+      <xs:element name="viaContacto" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:element name="SivacException" type="tns:SivacException"/>
+  <xs:complexType name="SivacException">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="message" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="obtenerAlmacenesResponse">
+    <wsdl:part element="tns:obtenerAlmacenesResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="obtenerAlmacenes">
+    <wsdl:part element="tns:obtenerAlmacenes" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SivacException">
+    <wsdl:part element="tns:SivacException" name="SivacException">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="SivacWebService">
+    <wsdl:operation name="obtenerAlmacenes">
+      <wsdl:input message="tns:obtenerAlmacenes" name="obtenerAlmacenes">
+    </wsdl:input>
+      <wsdl:output message="tns:obtenerAlmacenesResponse" name="obtenerAlmacenesResponse">
+    </wsdl:output>
+      <wsdl:fault message="tns:SivacException" name="SivacException">
+    </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="SivacWebServiceSoapBinding" type="tns:SivacWebService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="obtenerAlmacenes">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="obtenerAlmacenes">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="obtenerAlmacenesResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="SivacException">
+        <soap:fault name="SivacException" use="literal"/>
+      </wsdl:fault>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="SivacWebService">
+    <wsdl:port binding="tns:SivacWebServiceSoapBinding" name="SivacWebServicePort">
+      <soap:address location="https://localhost:8443/sivac/api/sivacWebService"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>
